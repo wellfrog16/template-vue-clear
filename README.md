@@ -1,4 +1,4 @@
-# paradise-fe
+# template-vue-clear
 
 ## Project setup
 ```
