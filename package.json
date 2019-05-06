@@ -1,0 +1,36 @@
+{
+  "name": "paradise-fe",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "eslint": "vue-cli-service lint",
+    "eslint2": "stylelint src/components/tinymce/**/* --fix",
+    "stylelint": "stylelint */**/*.{css,less,vue} --fix",
+    "log": "git log --pretty=oneline"
+  },
+  "dependencies": {
+    "element-ui": "^2.8.2",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6",
+    "vuex": "^3.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-plugin-eslint": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
+    "@vue/eslint-config-airbnb": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.2.2",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "less-plugin-functions": "^1.0.0",
+    "mockjs": "^1.0.1-beta3",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.3.0",
+    "stylelint-webpack-plugin": "^0.10.5",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
