@@ -6,9 +6,9 @@
                 class="aside-menu"
                 :data="menuData"
                 :collapse="collapse"
-                background-color="#1f2d3d"
+                background-color="#545c64"
                 text-color="#fff"
-                active-text-color="#ffa"
+                active-text-color="#ffd04b"
                 :default-active="defaultActive"
             />
         </el-aside>
