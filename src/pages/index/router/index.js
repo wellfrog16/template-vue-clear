@@ -17,24 +17,24 @@ Vue.use(Router);
 const staticRoutes = [
     {
         path: '',
-        redirect: { name: '登入界面' },
+        redirect: { path: '/login' },
         meta: {
             hidden: true,
         },
     },
     {
         path: '/login',
-        name: '登入界面',
         component: Login,
         meta: {
+            title: '登入界面',
             hidden: true,
         },
     },
     {
         path: '/401',
-        name: '401',
         component: () => import('../views/error/401.vue'),
         meta: {
+            title: '401',
             hidden: true,
         },
     },
@@ -43,37 +43,37 @@ const staticRoutes = [
 const asyncRoutes = [
     {
         path: '/home',
-        name: '主页',
         component: Layout,
         redirect: { path: '/home/index' },
         meta: {
             icon: 'menu-fix-icon fas fa-home fa-lg fa-fw',
+            title: '首页',
         },
         children: [
             {
                 path: 'index',
-                name: '主页详细',
                 component: () => import('../views/home/Index.vue'),
                 meta: {
                     hidden: true,
+                    title: '首页详细',
                 },
             },
         ],
     },
     {
         path: '/document',
-        name: '说明文档',
         component: Layout,
         redirect: { path: '/document/index' },
         meta: {
+            title: '说明文档',
             icon: 'el-icon-document',
         },
         children: [
             {
                 path: 'index',
-                name: '说明文档首页',
                 component: () => import('../views/document/Index.vue'),
                 meta: {
+                    title: '说明文档首页',
                     hidden: true,
                 },
             },
@@ -81,18 +81,18 @@ const asyncRoutes = [
     },
     {
         path: '/ui',
-        name: '组件',
         component: Layout,
         redirect: { path: '/ui/form' },
         meta: {
+            title: '组件',
             icon: 'menu-fix-icon fas fa-puzzle-piece fa-lg fa-fw',
         },
         children: [
             {
-                name: '基础表格和表单',
                 path: 'form',
                 component: () => import('../views/ui/Form.vue'),
                 meta: {
+                    title: '基础表格和表单',
                     icon: 'menu-fix-icon fab fa-wpforms fa-lg fa-fw',
                 },
             },

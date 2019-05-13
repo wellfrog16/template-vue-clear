@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
                 store.commit('member/logout');
                 next({ path: '/login', query: { from: to.path } });
             });
-        } else if (hasPermission(to, roles) && to.name) {
+        } else if (hasPermission(to, roles) && to.meta && to.meta.title) {
             // 这里额外判断to.name，因为正常情况，没有权限的路由已经被过滤掉了
             // 手动输入没有权限的地址进行访问会找不到路由显示白屏
             // 没有路由就不能依靠meta来判断，否则会和没有设置meta的路由一样认为有权限

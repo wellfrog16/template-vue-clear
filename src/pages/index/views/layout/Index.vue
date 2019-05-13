@@ -22,7 +22,7 @@
                             v-for="item in routeMatched"
                             :to="{ path: item.path }"
                             :key="item.path"
-                        >{{ item.name }}</el-breadcrumb-item>
+                        >{{ item.meta && item.meta.title }}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
                 <functions />
@@ -52,7 +52,7 @@ export default {
     },
     computed: {
         routeMatched() {
-            return this.$route.matched.filter(item => !(item.meta && item.meta.hidden) && item.name !== '主页');
+            return this.$route.matched.filter(item => !(item.meta && item.meta.hidden) && (item.meta && item.meta.title !== '首页'));
         },
         defaultActive() {
             const matched = [...this.$route.matched];
