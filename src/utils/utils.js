@@ -132,10 +132,23 @@ function currency(vals, units = '', decimals) {
         + floatx;
 }
 
+function customizer(objValue, srcValue) {
+    if (_.isPlainObject(srcValue)) {
+        return _.mergeWith(objValue, srcValue, customizer);
+    }
+    return srcValue;
+}
+
+// 深度合并，包含原型链
+function deepMerge(target, obj) {
+    _.mergeWith(target, obj, customizer);
+}
+
 export default {
     isEmpty,
     getUrlParam,
     autoRootSize,
     createCode,
     currency,
+    deepMerge,
 };
