@@ -36,6 +36,7 @@ export default {
         login({ commit }, userInfo) {
             return new Promise((resolve) => {
                 commit('setState', { token: '1' });
+                auth.set('1');
                 storage.set('username', userInfo.username);
                 resolve(true);
             });

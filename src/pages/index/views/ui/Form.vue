@@ -35,12 +35,8 @@ export default {
     mounted() {
         this.$alert('这个页面用来演示基础的增删改查<br>具体操作请查看代码', { dangerouslyUseHTMLString: true });
     },
-    beforeRouteUpdate(to, from, next) {
-        this.setState({ filters: to.query });
-        next();
-    },
     methods: {
-        ...mapMutations(['setState', 'test']),
+        ...mapMutations(['setState']),
     },
 };
 </script>
