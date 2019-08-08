@@ -6,18 +6,19 @@
                 class="aside-menu"
                 :data="menuData"
                 :collapse="collapse"
-                background-color="#545c64"
-                text-color="#fff"
-                active-text-color="#ffd04b"
+                background-color="#316cb1"
+                text-color="#d0ddec"
+                active-text-color="#deff00"
                 :default-active="defaultActive"
+                :popper-class="$style['my-popper']"
             />
         </el-aside>
         <el-container>
             <el-header :class="$style.header">
                 <div :class="$style.left">
-                    <i :class="[$style.switch, 'el-icon-s-unfold']" @click="toggle" id="asideToggle" />
+                    <i :class="[$style.switch, 'fas fa-bars fa-lg']" @click="toggle" id="asideToggle" />
                     <el-breadcrumb separator="/" :class="$style.breadcrumb" id="breadcrumb">
-                        <el-breadcrumb-item :to="{ path: '/home' }">主页</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
                         <el-breadcrumb-item
                             v-for="item in routeMatched"
                             :to="{ path: item.path }"
@@ -28,7 +29,9 @@
                 <functions />
             </el-header>
             <el-main :class="$style.main" id="elMain">
-                <router-view />
+                <transition name="component-fade" mode="out-in">
+                    <router-view />
+                </transition>
             </el-main>
         </el-container>
     </el-container>
@@ -36,8 +39,7 @@
 
 <script>
 import AsideMenu from '#index/components/common/menu/index.vue';
-import Functions from '#index/components/layout/functions/index.vue';
-// import menu from '@/helper/menu';
+import Functions from './components/functions/index.vue';
 import { $ } from '@/utils/cdn';
 import { storage } from '@/utils/rivers';
 
@@ -47,7 +49,7 @@ export default {
         return {
             width: 'auto',
             collapse: false,
-            menuData: this.$store.state.permission.routes,
+            menuData: this.$store.getters.routes,
         };
     },
     computed: {
@@ -56,7 +58,8 @@ export default {
         },
         defaultActive() {
             const matched = [...this.$route.matched];
-            return matched.reverse().find(item => !(item.meta && item.meta.hidden)).path;
+            const route = matched.reverse().find(item => (item.meta && item.meta.belong) || !(item.meta && item.meta.hidden));
+            return (route.meta && route.meta.belong) || route.path;
         },
     },
     mounted() {
@@ -88,7 +91,7 @@ export default {
 </script>
 
 <style lang="less" module>
-@import '../../../../assets/style/config.less';
+@import '~@/assets/style/config.less';
 
 @height: 60px;
 
@@ -107,6 +110,18 @@ export default {
     :global(.aside-menu:not(.el-menu--collapse)) {
         width: 250px;
     }
+
+    :global(.aside-menu) i {
+        color: #d0ddec;
+    }
+
+    :global(.el-menu-item.is-active) i {
+        color: #deff00;
+    }
+}
+
+.my-popper i {
+    color: #d0ddec;
 }
 
 .aside {
@@ -122,8 +137,11 @@ export default {
     height: @height;
     line-height: @height;
     border-bottom: 1px solid @g-color-border4;
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
+    position: relative;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 
     .left {
         display: flex;
@@ -138,14 +156,14 @@ export default {
 
 .switch-tran {
     transform: rotate(90deg);
-    transition: all 0.2s;
 }
 
 .main {
     background-color: #f0f2f5;
-    // min-width: 1000px;
     box-sizing: border-box;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .breadcrumb {

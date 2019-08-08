@@ -16,7 +16,7 @@
 
             <!-- 有子菜单 -->
             <template v-if="!isHidden(item) && (item.children && !isHiddenChildren(item))">
-                <submenu-item :item="item" :key="index" />
+                <submenu-item :item="item" :key="index" :popper-class="popperClass" />
             </template>
         </template>
     </el-menu>
@@ -37,6 +37,7 @@ export default {
         'background-color': { type: String, default: '#fff' },
         'text-color': { type: String, default: '#303133' },
         'active-text-color': { type: String, default: '#409eff' },
+        'popper-class': { type: String, default: '' },
     },
     methods: {
         isHidden(item) {
@@ -45,7 +46,7 @@ export default {
         isHiddenChildren(item) {
             let isHidden = false;
             if (item.children && item.children.length > 0) {
-                isHidden = item.children.some(item1 => item1.meta && item1.meta.hidden);
+                isHidden = item.children.every(item1 => item1.meta && item1.meta.hidden);
             }
             return isHidden;
         },

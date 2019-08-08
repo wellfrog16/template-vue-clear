@@ -4,10 +4,10 @@
             <div slot="header" class="clearfix">
                 <span>管理登陆</span>
             </div>
-            <el-form ref="form" :model="form.fields" :rules="form.rules" class="login-form" auto-complete="on">
-                <el-form-item prop="username">
+            <el-form ref="form" :model="form.fields" :rules="form.rules" class="login-form" auto-complete="on" @submit.native.prevent>
+                <el-form-item prop="name">
                     <el-input
-                        v-model="form.fields.username"
+                        v-model="form.fields.name"
                         prefix-icon="fas fa-user fa-lg fa-fw"
                         placeholder="用户名"
                         type="text"
@@ -21,8 +21,9 @@
                         prefix-icon="fas fa-lock fa-lg fa-fw"
                         placeholder="密码"
                         auto-complete="on"
-                        :type="form.passwordType"
+                        type="password"
                         show-password
+                        @keyup.enter.native="handleLogin"
                     >
                     </el-input>
                 </el-form-item>
@@ -46,17 +47,14 @@
                     ></canvas>
                 </el-form-item>
 
-                <el-button :class="$style.login" type="primary" @click="handleLogin">登 入</el-button>
+                <el-button :class="$style.login" type="primary" @click="handleLogin" :loading="loading">登 入</el-button>
             </el-form>
         </el-card>
     </div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-import utils from '@/utils/utils';
-
-const { mapActions } = createNamespacedHelpers('member');
+import { utils, rules } from '@/utils/rivers';
 
 export default {
     data() {
@@ -69,23 +67,23 @@ export default {
         };
 
         return {
+            loading: false,
             preset: {
-                username: 'admin',
+                name: 'admin',
                 password: 'admin888',
                 code: '',
             },
             form: {
-                passwordType: 'password',
                 fields: {
-                    username: 'admin',
+                    name: 'admin',
                     password: 'admin888',
                     code: '',
                 },
                 rules: {
-                    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                    ...rules.checkString('name', { name: '用户名' }),
+                    ...rules.checkString('password', { name: '密码' }),
                     code: [
-                        { required: true, message: '请输入验证码', trigger: 'blur' },
+                        { required: true, message: '请输入验证码', trigger: 'change' },
                         { validator: validateCode, trigger: 'blur' },
                     ],
                 },
@@ -93,52 +91,48 @@ export default {
         };
     },
     mounted() {
-        window.v = this;
         this.refreshCode();
     },
     methods: {
-        ...mapActions(['login']),
         refreshCode() {
             const domCanvas = this.$refs.canvas;
             const code = utils.createCode(domCanvas);
 
             this.preset.code = code;
+            this.form.fields.code = code;
         },
         handleLogin() {
             this.$refs.form.validate().then(() => {
                 // 先校验验证码
                 if (this.preset.code.toLowerCase() !== this.form.fields.code.toLowerCase()) { return; }
 
-                this.login(this.form.fields).then((success) => {
-                    if (success) {
-                        const path = this.$route.query.from || '/home';
-                        this.$nextTick(() => this.$router.push({ path }));
-                    } else {
-                        this.refreshCode();
-                        this.$message.error('登陆失败，账号或密码错误');
-                    }
+                this.loading = true;
+
+                // 登陆
+                this.$store.dispatch('security/account/login', this.form.fields).then(() => {
+                    const path = this.$route.query.from || '/home';
+                    this.$router.push({ path });
                 }).catch((err) => {
-                    this.$message.error(err);
+                    this.loading = false;
+                    let { message } = err;
+                    message.match(/^(.+)code\s(\d{3})/g);
+                    message = RegExp.$1;
+                    const code = +(RegExp.$2);
+
+                    if (code && code < 300) {
+                        this.$message.error(message);
+                    }
+
+                    console.warn(err);
                 });
-            }).catch(() => {});
-        },
-    },
-    computed: {
-        isPassword() {
-            return this.form.passwordType === 'password';
-        },
-        clsEye() {
-            return {
-                'fa-eye-slash': this.isPassword,
-                'fa-eye': !this.isPassword,
-            };
+            }).catch((err) => { console.warn(err); });
         },
     },
 };
 </script>
 
 <style lang="less" module>
-@import '../../../../assets/style/config.less';
+@import '~@/assets/style/config.less';
 
 .main {
     background-color: @g-color-primary;
@@ -154,12 +148,8 @@ export default {
     }
 }
 
-.icon-eye {
-    cursor: pointer;
-}
-
 .input-code {
-    width: 230px !important;
+    width: 220px !important;
 }
 
 .canvas {

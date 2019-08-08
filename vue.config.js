@@ -36,6 +36,18 @@ module.exports = {
         config.devtool = 'source-map'; // eslint-disable-line
     },
 
+    // configureWebpack: {
+    //     // externals: {
+    //     //     jquery: 'jQuery',
+    //     // },
+    //     plugins: [
+    //         new StyleLintPlugin({
+    //             context: 'src',
+    //             files: ['**/*.less', '**/*.s?(a|c)ss', '**/*.vue'],
+    //         }),
+    //     ],
+    // },
+
     lintOnSave: true,
 
     css: {

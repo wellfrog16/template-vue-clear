@@ -1,8 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Layout from '../views/layout/Index.vue';
-// import Root from '../../../components/Root.vue';
-import Login from '../views/login/Index.vue';
+import Login from '#index/views/login/Index.vue';
+
+// 路由模块
+import routeResearch from './modules/research';
+import routeDocument from './modules/document';
+import routeHome from './modules/home';
+import routeAccount from './modules/account';
 
 Vue.use(Router);
 
@@ -10,8 +14,6 @@ Vue.use(Router);
 // const Root = Vue.component('root', {
 //     template: '<router-view></router-view>',
 // });
-
-// const icon = 'menu-fix-icon fas fa-pager fa-lg fa-fw';
 
 // 静态路由，不参与权限验证
 const staticRoutes = [
@@ -32,7 +34,7 @@ const staticRoutes = [
     },
     {
         path: '/401',
-        component: () => import('../views/error/401.vue'),
+        component: () => import('#index/views/error/401.vue'),
         meta: {
             title: '401',
             hidden: true,
@@ -41,63 +43,10 @@ const staticRoutes = [
 ];
 
 const asyncRoutes = [
-    {
-        path: '/home',
-        component: Layout,
-        redirect: { path: '/home/index' },
-        meta: {
-            icon: 'menu-fix-icon fas fa-home fa-lg fa-fw',
-            title: '首页',
-        },
-        children: [
-            {
-                path: 'index',
-                component: () => import('../views/home/Index.vue'),
-                meta: {
-                    hidden: true,
-                    title: '首页详细',
-                },
-            },
-        ],
-    },
-    {
-        path: '/document',
-        component: Layout,
-        redirect: { path: '/document/index' },
-        meta: {
-            title: '说明文档',
-            icon: 'el-icon-document',
-        },
-        children: [
-            {
-                path: 'index',
-                component: () => import('../views/document/Index.vue'),
-                meta: {
-                    title: '说明文档首页',
-                    hidden: true,
-                },
-            },
-        ],
-    },
-    {
-        path: '/ui',
-        component: Layout,
-        redirect: { path: '/ui/form' },
-        meta: {
-            title: '组件',
-            icon: 'menu-fix-icon fas fa-puzzle-piece fa-lg fa-fw',
-        },
-        children: [
-            {
-                path: 'form',
-                component: () => import('../views/ui/Form.vue'),
-                meta: {
-                    title: '基础表格和表单',
-                    icon: 'menu-fix-icon fab fa-wpforms fa-lg fa-fw',
-                },
-            },
-        ],
-    },
+    ...routeHome,
+    ...routeDocument,
+    ...routeResearch,
+    ...routeAccount,
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {
@@ -124,7 +73,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 };
 
 // todo 按模块写入单独的文件引用
-const router = new Router({
+const createRouter = () => new Router({
     // mode: 'history',
     scrollBehavior,
     routes: staticRoutes,
@@ -135,4 +84,4 @@ export {
     asyncRoutes,
 };
 
-export default router;
+export default createRouter;

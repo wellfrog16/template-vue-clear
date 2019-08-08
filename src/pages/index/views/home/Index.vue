@@ -1,8 +1,6 @@
 <template>
     <div class="main-wrapper">
-        <el-card shadow="never">
-            首页
-        </el-card>
+        首页
     </div>
 </template>
 
@@ -10,3 +8,6 @@
 export default {
 };
 </script>
+
+<style lang="less" module>
+</style>

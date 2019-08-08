@@ -1,9 +1,7 @@
 <template>
-    <div class="main-wrapper">
-        <el-card shadow="never">
-            文档
-        </el-card>
-    </div>
+    <el-card shadow="never">
+        文档
+    </el-card>
 </template>
 
 <script>

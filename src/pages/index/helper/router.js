@@ -1,46 +1,60 @@
-import router, { staticRoutes, asyncRoutes } from '../router';
-import store from '#index/store';
-import filterAsyncRoutes, { hasPermission } from '@/helper/permission';
-import { auth } from '@/utils/rivers';
-import { NProgress } from '@/utils/cdn';
 
-// function hasPermission(roles, permissionRoles) {
-//     if (roles.includes('admin')) return true // admin permission passed directly
-//     if (!permissionRoles) return true
-//     return roles.some(role => permissionRoles.indexOf(role) >= 0)
-// }
+import createRouter, { asyncRoutes } from '#index/router';
+import store from '#index/store';
+import { helper } from '@/helper/lakes';
+import { NProgress } from '@/utils/cdn';
+import { Permission } from '@/utils/rivers';
 
 NProgress.configure({ showSpinner: false });
 
-// todo
+const router = createRouter();
 router.beforeEach((to, from, next) => {
     NProgress.start();
 
     // 白名单，不需要登陆的路由数组
-    const whiteList = ['/login'];
+    const whiteList = ['/login', '/401'];
+    const site = helper.site();
 
     if (whiteList.includes(to.path)) { // 白名单直接放行
         next();
-    } else if (auth.get()) { // 有token，已经登陆
-        const { roles } = store.getters;
-        if (roles.length === 0) { // 没有角色信息
-            store.dispatch('member/info').then((res) => {
-                const routes = filterAsyncRoutes(asyncRoutes, res.roles);
-                store.commit('permission/setState', { routes: staticRoutes.concat(routes) });
+    } else if (site.accessToken) { // 有token，已经登陆
+        let { permissions } = store.getters;
+
+        if (permissions.length === 0) { // 没有角色列表信息（页面刷新vuex信息丢失）
+            // storage信息回写，不解构避免写入其他site中的数据
+            store.commit('security/account/setState', {
+                accessToken: site.accessToken,
+                refreshToken: site.refreshToken,
+                accountId: site.accountId,
+                accountName: site.accountName, // 账户名称
+                roles: [...site.roles], // 账户角色
+            });
+
+            // 获取权限信息
+            store.dispatch('security/role/listByRoles', { codes: site.roles }).then(() => {
+                // permissions为路由数组
+                ({ permissions } = store.getters);
+                // 将权限信息写入async router中
+                const pms = new Permission(asyncRoutes);
+                let routes = pms.injectRoles(permissions, site.roles);
+
+                // 过滤出符合自己角色的路由
+                routes = Permission.filterAsyncRoutes(routes, site.roles);
+
+                // 保存自己的路由
+                store.commit('security/account/setState', { routes });
+
+                router.matcher = createRouter().matcher;
                 router.addRoutes(routes); // 动态添加可访问路由表
                 next({ ...to });
             }).catch(() => {
-                store.commit('member/logout');
                 next({ path: '/login', query: { from: to.path } });
             });
-        } else if (hasPermission(to, roles) && to.meta && to.meta.title) {
-            // 这里额外判断to.name，因为正常情况，没有权限的路由已经被过滤掉了
-            // 手动输入没有权限的地址进行访问会找不到路由显示白屏
-            // 没有路由就不能依靠meta来判断，否则会和没有设置meta的路由一样认为有权限
-            // 因此这里增加to.name判断（每个路由都需要设置name），如果没有name表示没有这个路由，也就代表没有权限
+        // } else if (Permission.hasPermission(to, site.roles)) {
+        } else if (Permission.hasPermission(to, site.roles)) {
             next();
         } else {
-            // console.log('没有权限，带去没有权限的页面');
+            console.log('没有权限，带去没有权限的页面');
             next({ path: '/401' });
         }
     } else { // 无token，转到登陆页面
@@ -51,3 +65,5 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
     NProgress.done();
 });
+
+export default router;

@@ -1,4 +1,4 @@
-import { createBaseStore } from '#index/helper/store';
+import createBaseStore from '#index/store/common/baseStore';
 import { utils } from '@/utils/rivers';
 
 const store = createBaseStore();
@@ -7,7 +7,7 @@ const extraStore = {
         multipleSelection: [], // 批量选中的行数据
     },
     getters: {
-        // 选中行的guid
+        // 选中行的uid
         multipleSelectionUid(state) {
             return state.multipleSelection.map(item => item.id).join(',');
         },
