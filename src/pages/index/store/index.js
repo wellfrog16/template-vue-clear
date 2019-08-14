@@ -3,9 +3,6 @@ import Vuex from 'vuex';
 import { utils } from '@/utils/rivers';
 
 // 站点模块
-import baseForm from './modules/base-form';
-import complexTable from './modules/complex-table';
-import lazyTable from './modules/lazy-table';
 import security from './modules/security';
 import mixins from './modules/mixins';
 
@@ -37,9 +34,6 @@ export default new Vuex.Store({
         },
     },
     modules: {
-        baseForm,
-        complexTable,
-        lazyTable,
         security,
         mixins,
     },
