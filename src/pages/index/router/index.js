@@ -43,10 +43,10 @@ const staticRoutes = [
 ];
 
 const asyncRoutes = [
-    ...routeHome,
-    ...routeDocument,
-    ...routeResearch,
-    ...routeAccount,
+    routeHome,
+    routeDocument,
+    routeResearch,
+    routeAccount,
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {
