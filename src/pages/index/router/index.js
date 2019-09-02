@@ -6,7 +6,7 @@ import Login from '#index/views/login/Index.vue';
 import routeResearch from './modules/research';
 import routeDocument from './modules/document';
 import routeHome from './modules/home';
-import routeAccount from './modules/account';
+import routeSecurity from './modules/security';
 
 Vue.use(Router);
 
@@ -46,7 +46,7 @@ const asyncRoutes = [
     routeHome,
     routeDocument,
     routeResearch,
-    routeAccount,
+    routeSecurity,
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {
