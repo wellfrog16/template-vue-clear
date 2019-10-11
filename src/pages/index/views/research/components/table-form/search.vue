@@ -44,7 +44,7 @@
 import { createNamespacedHelpers } from 'vuex';
 import AbsSearch from '#index/components/abstract/search/default.vue';
 
-const { mapState, mapMutations, mapActions } = createNamespacedHelpers('mixins');
+const { mapState, mapMutations, mapActions } = createNamespacedHelpers('research/tableForm');
 
 export default {
     mixins: [AbsSearch],

@@ -10,11 +10,19 @@ const route = {
     },
     children: [
         {
-            path: 'mixins',
-            component: () => import('#index/views/research/Mixins.vue'),
+            path: 'table-form',
+            component: () => import('#index/views/research/TableForm.vue'),
             meta: {
-                title: '组件继承',
-                icon: 'el-icon-goods',
+                title: '基础表格和表单',
+                icon: 'menu-fix-icon fab fa-wpforms fa-lg fa-fw',
+            },
+        },
+        {
+            path: 'table-lazy',
+            component: () => import('#index/views/research/TableLazy.vue'),
+            meta: {
+                title: '滚动加载',
+                icon: 'menu-fix-icon fas fa-scroll fa-lg fa-fw',
             },
         },
     ],

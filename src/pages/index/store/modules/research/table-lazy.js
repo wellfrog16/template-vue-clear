@@ -1,11 +1,13 @@
 import apiStore from '#index/store/common/apiStore';
 import { utils } from '@/utils/rivers';
-import api from '@/api/mock/table';
+import api from '@/api/mock/person';
 
 const store = apiStore(api);
 const extraStore = {
     state: {
         multipleSelection: [], // 批量选中的行数据
+        infiniteState: null,
+        lazy: true, // 是否是滚动加载，如果是需要提供infiniteState
     },
     getters: {
         // 选中行的uid
