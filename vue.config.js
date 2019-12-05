@@ -3,7 +3,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const path = require('path');
 const pages = require('./build/pages');
 
-const resolve = dir => path.join(__dirname, dir);
+const resolve = (dir) => path.join(__dirname, dir);
 
 module.exports = {
     publicPath: './',
@@ -58,9 +58,19 @@ module.exports = {
             less: {
                 plugins: [new LessPluginFun()],
             },
+            // postcss: {
+            //     plugins: [
+            //         require('postcss-pxtorem') ({ // eslint-disable-line
+            //             rootValue: 36, // 设计稿1rem = 36px
+            //             minPixelValue: 4,
+            //             selectorBlackList: ['px'], // 忽略转换正则匹配项
+            //             propList: ['*'],
+            //         }),
+            //     ],
+            // },
         },
         // 启用 CSS modules for all css / pre-processor files.
-        modules: false,
+        requireModuleExtension: true,
     },
 
     chainWebpack: (config) => {

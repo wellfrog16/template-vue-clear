@@ -3,7 +3,6 @@
         :title="title"
         :visible.sync="editVisible"
         :before-close="handleClose"
-        :close-on-click-modal="false"
         :modal-append-to-body="true"
         class="or-drawer-wrapper"
         custom-class="or-drawer"
@@ -76,7 +75,7 @@ export default {
                 education: '',
                 status: '',
             };
-            return Object.assign({}, fields);
+            return { ...fields };
         },
     },
 };

@@ -18,6 +18,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../assets/style/main.less';
-@import '../../assets/style/usr/app.less';
+@import '../../assets/style/usr/index.less';
 </style>

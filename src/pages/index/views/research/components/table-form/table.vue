@@ -39,7 +39,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import AbsTable from '#index/components/abstract/table/default.vue';
-import style from '@/assets/style/usr/app.module.less';
+import style from '@/assets/style/usr/index.module.less';
 
 const { mapState, mapMutations, mapActions } = createNamespacedHelpers('research/tableForm');
 
@@ -55,7 +55,7 @@ export default {
                 { key: '游学', value: 'warning' },
             ];
 
-            const result = list.find(item => item.key === status);
+            const result = list.find((item) => item.key === status);
             return result ? result.value : '';
         },
         genderFilter(gender) {

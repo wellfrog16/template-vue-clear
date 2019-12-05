@@ -54,11 +54,11 @@ export default {
     },
     computed: {
         routeMatched() {
-            return this.$route.matched.filter(item => !(item.meta && item.meta.hidden) && (item.meta && item.meta.title !== '首页'));
+            return this.$route.matched.filter((item) => !(item.meta && item.meta.hidden) && (item.meta && item.meta.title !== '首页'));
         },
         defaultActive() {
             const matched = [...this.$route.matched];
-            const route = matched.reverse().find(item => (item.meta && item.meta.belong) || !(item.meta && item.meta.hidden));
+            const route = matched.reverse().find((item) => (item.meta && item.meta.belong) || !(item.meta && item.meta.hidden));
             return (route.meta && route.meta.belong) || route.path;
         },
     },
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style lang="less" module>
-@import '~@/assets/style/config.less';
+@import '~@/assets/style/usr/index.config.less';
 
 @height: 60px;
 

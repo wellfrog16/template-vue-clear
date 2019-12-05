@@ -1,5 +1,6 @@
 import { storage } from '@/utils/rivers';
 import { STORAGE_SITE } from '@/helper/constant';
+import config from '@/config';
 
 /**
  * 存放header等信息
@@ -12,7 +13,7 @@ function site() {
         // 属性等
         ...mySite,
         headers: {
-            authorization: mySite.accessToken,
+            Authorization: mySite.accessToken,
         },
 
         // 方法
@@ -22,6 +23,22 @@ function site() {
     };
 }
 
+function restful(axios, base) {
+    const insert = (params) => axios.post(base, params);
+    const update = (id, params) => axios.pust(`${base}/${id}`, params);
+    const detail = (id) => axios.get(`${base}/${id}`);
+    const remove = (id) => axios.delete(`${base}/${id}`);
+
+    return {
+        insert,
+        update,
+        detail,
+        remove,
+    };
+}
+
 export default {
     site,
+    restful,
+    config,
 };

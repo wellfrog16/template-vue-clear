@@ -37,7 +37,8 @@ function getUrlParam(url) {
  */
 function setRootSize(maxSize = 75) {
     $(() => {
-        let fontSize = window.innerWidth / 10;
+        // let fontSize = window.innerWidth / 10;
+        let fontSize = document.body.clientWidth / 10;
         fontSize = fontSize > maxSize ? maxSize : fontSize;
         $('html').css('font-size', fontSize);
     });
@@ -82,17 +83,17 @@ function createCode(canvas) {
         ctx.shadowOffsetY = _.random(-3, 3);
         ctx.shadowBlur = _.random(-3, 3);
         ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-        const x = 80 / 5 * (i + 1);
+        const x = (80 / 5) * (i + 1);
         const y = 39 / 2;
         const deg = _.random(-25, 25);
 
         // 设置旋转角度和坐标原点
         ctx.translate(x, y);
-        ctx.rotate(deg * Math.PI / 180);
+        ctx.rotate((deg * Math.PI) / 180);
         ctx.fillText(char, 0, 0);
 
         // 恢复旋转角度和坐标原点
-        ctx.rotate(-deg * Math.PI / 180);
+        ctx.rotate((-deg * Math.PI) / 180);
         ctx.translate(-x, -y);
     }
 
@@ -160,6 +161,46 @@ function delay(time = 1000) {
 }
 
 /**
+ * 检测图片的宽高
+ *
+ * @param {*} 图片的地址
+ * @return {Json} { width, height }
+ */
+function getImageSize(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = url;
+
+        const timeout = 3000; // 检测超时上限
+        const interval = 10; // 检测频率
+        let times = 0; // 已用时
+        let timer = null; // setInterval
+
+        function check() {
+            times += interval;
+
+            // 加载超时
+            if (times >= timeout) {
+                clearInterval(timer);
+                img.src = '';
+                reject(new Error('time out!'));
+            }
+
+            //  只要任何一方大于0
+            // 表示服务器已经返回宽高
+            if (img.width > 0 || img.height > 0) {
+                clearInterval(timer);
+                resolve({
+                    width: img.width,
+                    height: img.height,
+                });
+            }
+        }
+        timer = setInterval(check, interval);
+    });
+}
+
+/**
  * 去掉所有的html标签和&nbsp;之类的特殊符合
  *
  * @param {String} str
@@ -192,6 +233,34 @@ function deepMerge(target, obj) {
     _.mergeWith(target, obj, customizer);
 }
 
+/**
+ * file格式转base64
+ *
+ * @param {*} file
+ * @returns
+ */
+function file2base64(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+    });
+}
+
+// 将base64转换为文件
+function base642file(dataurl, filename) {
+    const arr = dataurl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n) {
+        n -= 1;
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+}
+
 export default {
     isEmpty,
     getUrlParam,
@@ -200,7 +269,10 @@ export default {
     currency,
     secretPhoneNum,
     getRandomColor,
+    getImageSize,
     deepMerge,
     delay,
     deleteHtmlTag,
+    file2base64,
+    base642file,
 };

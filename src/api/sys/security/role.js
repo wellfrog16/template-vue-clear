@@ -5,7 +5,7 @@ const axios = instance({ baseURL: config.server.easyMock });
 
 const base = '/role';
 
-const list = params => axios.get(base, { params });
+const list = (params) => axios.get(base, { params });
 
 // online
 // const listByRoles = (params) => {
@@ -46,6 +46,7 @@ const listByRoles = () => new Promise((resolve) => {
                 '/split-pane',
                 'https://github.com/wellfrog16/template-vue-admin',
                 '/iframe',
+                '/test',
             ],
         },
         {
@@ -67,15 +68,16 @@ const listByRoles = () => new Promise((resolve) => {
                 '/split-pane',
                 'https://github.com/wellfrog16/template-vue-admin',
                 '/iframe',
+                '/test',
             ],
         }],
     });
 });
 
-const detail = params => axios.get(base, { params });
-const insert = params => axios.post(base, params);
-const update = params => axios.put(base, params);
-const remove = params => axios.delete(base, { params });
+const detail = (params) => axios.get(base, { params });
+const insert = (params) => axios.post(base, params);
+const update = (params) => axios.put(base, params);
+const remove = (params) => axios.delete(base, { params });
 
 export default {
     list,

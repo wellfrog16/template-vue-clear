@@ -48,7 +48,7 @@ function axiosInstance(args) {
         // 自定义
         notification: true, // notification提示框
         loading: false, // 全局loading层（不推荐）
-        retryMax: 4, // 自动重试次数
+        retryMax: 1, // 自动重试次数
         retryDelay: 1000, // 重试延迟
 
         // 原生
@@ -60,7 +60,7 @@ function axiosInstance(args) {
         // },
     };
 
-    const options = Object.assign({}, defaultOptions, args);
+    const options = { ...defaultOptions, ...args };
     const instance = axios.create({ ...options });
 
     let loadingInstancce = null;
@@ -80,7 +80,7 @@ function axiosInstance(args) {
             });
         }
         return myReq;
-    }, error => Promise.reject(error));
+    }, (error) => Promise.reject(error));
 
     instance.interceptors.response.use((response) => {
         loadingInstancce && loadingInstancce.close();

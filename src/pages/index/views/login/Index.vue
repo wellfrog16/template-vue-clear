@@ -2,7 +2,7 @@
     <div :class="[$style.main, 'flex-center']">
         <el-card :class="$style.box">
             <div slot="header" class="clearfix">
-                <span>管理登陆</span>
+                <span>管理登录</span>
             </div>
             <el-form ref="form" :model="form.fields" :rules="form.rules" class="login-form" auto-complete="on" @submit.native.prevent>
                 <el-form-item prop="name">
@@ -132,7 +132,7 @@ export default {
 </script>
 
 <style lang="less" module>
-@import '~@/assets/style/config.less';
+@import '~@/assets/style/usr/index.config.less';
 
 .main {
     background-color: @g-color-primary;
