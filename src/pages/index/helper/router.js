@@ -1,9 +1,9 @@
 
-import createRouter, { asyncRoutes } from '#index/router';
-import store from '#index/store';
 import { helper } from '@/helper/lakes';
 import { NProgress } from '@/utils/cdn';
 import { Permission } from '@/utils/rivers';
+import store from '#index/store';
+import createRouter, { asyncRoutes } from '#index/router';
 
 NProgress.configure({ showSpinner: false });
 
