@@ -1,5 +1,7 @@
 <template>
     <div id="functions" :class="$style.main">
+        <x-server />
+
         <!-- 通知 -->
         <notification :effect="tooltip.effect" :placement="tooltip.placement" />
 
@@ -11,11 +13,13 @@
 <script>
 import Notification from './notification.vue';
 import User from './user.vue';
+import XServer from './server.vue';
 
 export default {
     components: {
         Notification,
         User,
+        XServer,
     },
     data() {
         return {

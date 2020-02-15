@@ -1,7 +1,7 @@
 import instance from '@/helper/axios';
-import config from '@/config';
+import { server } from '@/config';
 
-const axios = instance({ baseURL: config.server.easyMock });
+const axios = instance({ baseURL: server.easyMock });
 
 const base = '/role';
 
@@ -44,7 +44,7 @@ const listByRoles = () => new Promise((resolve) => {
                 '/i18n',
                 '/log',
                 '/split-pane',
-                'https://github.com/wellfrog16/template-vue-admin',
+                '/link-to-template',
                 '/iframe',
                 '/test',
             ],
@@ -66,7 +66,7 @@ const listByRoles = () => new Promise((resolve) => {
                 '/ui/part',
                 '/i18n',
                 '/split-pane',
-                'https://github.com/wellfrog16/template-vue-admin',
+                '/link-to-template',
                 '/iframe',
                 '/test',
             ],

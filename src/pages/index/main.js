@@ -1,9 +1,9 @@
 import Vue from 'vue';
+import { helper } from '@/helper/lakes';
+import { utils } from '@/utils/rivers';
 import store from './store';
 import router from './helper/router';
 import App from './App.vue';
-import { helper } from '@/helper/lakes';
-import { utils } from '@/utils/rivers';
 
 // 过滤器
 import '@/utils/filters';
@@ -18,6 +18,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$helper = helper;
 Vue.prototype.$utils = utils;
+Vue.prototype.$bus = new Vue(); // 事件总线
 
 window.vueIndex = new Vue({
     router,
