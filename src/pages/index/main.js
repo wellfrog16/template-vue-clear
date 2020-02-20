@@ -23,5 +23,5 @@ Vue.prototype.$bus = new Vue(); // 事件总线
 window.vueIndex = new Vue({
     router,
     store,
-    render: (h) => h(App),
+    render: h => h(App),
 }).$mount('#app');
