@@ -94,12 +94,13 @@ export default {
 @import '~@/assets/style/usr/index.config.less';
 
 @height: 60px;
+@page-height: calc(100vh - 60px); // 计算著主容器高度，原本非必要，然后突然出现，原因未知。表现为滚动条异常（变为body滚动条）
 
 .logo {
     height: @height;
     line-height: @height;
     margin: 0;
-    color: #fff;
+    color: @g-white;
     text-align: center;
     font-size: 20px;
 }
@@ -127,6 +128,7 @@ export default {
 .aside {
     width: 200px;
     background-color: @g-color-primary;
+    // height: @page-height;
 
     > ul {
         border-right: 0;
@@ -137,7 +139,7 @@ export default {
     height: @height;
     line-height: @height;
     border-bottom: 1px solid @g-color-border4;
-    background-color: #fff;
+    background-color: @g-white;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -164,6 +166,7 @@ export default {
     padding: 0;
     display: flex;
     flex-direction: column;
+    // height: @page-height;
 }
 
 .breadcrumb {

@@ -1,6 +1,7 @@
-import {
+import libs, {
     $, _,
 } from '@/utils/cdn';
+import loader from './loader';
 
 
 /**
@@ -221,6 +222,18 @@ function getRandomColor() {
     // return `hsl(${Math.random()}, 50%, 50%)`;
 }
 
+function loadCdn(name) {
+    if (!libs[name]) { throw new Error(`${name} 不存在`); }
+    const { js, css, objFun } = libs[name];
+    Array.isArray(css) && loader.loadCss(css);
+
+    return new Promise((resolve, reject) => {
+        loader.loadScript(js)
+            .then(() => resolve(objFun()))
+            .catch(() => reject(new Error(`load ${name} failed`)));
+    });
+}
+
 function customizer(objValue, srcValue) {
     if (_.isPlainObject(srcValue)) {
         return _.mergeWith(objValue, srcValue, customizer);
@@ -275,4 +288,5 @@ export default {
     deleteHtmlTag,
     file2base64,
     base642file,
+    loadCdn,
 };
