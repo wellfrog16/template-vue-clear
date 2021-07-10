@@ -8,7 +8,7 @@
 <script>
 export default {
     data() {
-        const site = this.$helper.site();
+        const site = this.$helper.getSite();
 
         return {
             serverName: site.server.name,

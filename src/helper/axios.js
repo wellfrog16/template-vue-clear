@@ -69,7 +69,7 @@ function axiosInstance(args) {
     let myReq = null;
 
     instance.interceptors.request.use(request => {
-        const site = window.vueIndex.$helper.site();
+        const site = window.vueIndex.$helper.getSite();
         myReq = formatRequest(request);
         Object.assign(myReq.headers, site.headers); // todo深度合并防止bug
 

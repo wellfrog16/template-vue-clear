@@ -23,7 +23,7 @@ export default {
         };
     },
     mounted() {
-        const site = helper.site();
+        const site = helper.getSite();
         this.username = site.username || 'admin';
     },
     methods: {

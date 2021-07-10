@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { helper } from '@/helper/lakes';
 import { utils } from '@/utils/rivers';
 import store from './store';
-import router from './helper/router';
+import router from './router/guard';
 import App from './App.vue';
 
 // 过滤器

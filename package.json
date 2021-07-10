@@ -5,9 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "eslint": "vue-cli-service lint",
+    "eslint2": "eslint src/**/* --fix",
+    "stylelint": "stylelint */**/*.{css,less,vue} --fix",
+    "log": "git log --pretty=oneline"
   },
   "dependencies": {
+    "@frog-res/h-utils": "^0.1.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.3",
     "mockjs": "^1.1.0",

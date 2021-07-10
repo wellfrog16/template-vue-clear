@@ -32,6 +32,10 @@ export default new Vuex.Store({
         routes(state, getters, rootState) {
             return rootState.security.account.routes;
         },
+
+        isAdmin(state, getters, rootState) {
+            return rootState.security.safe.jsonRoles.indexOf('admin') !== -1;
+        },
     },
     modules: {
         security,

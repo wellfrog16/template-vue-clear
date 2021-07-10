@@ -2,6 +2,7 @@ import Layout from '#index/views/layout/Index.vue';
 // import Root from '../../../components/Root.vue';
 
 const route = {
+    name: 'myhome',
     path: '/home',
     component: Layout,
     redirect: { path: '/home/index' },
@@ -11,6 +12,7 @@ const route = {
     },
     children: [
         {
+            name: 'home',
             path: 'index',
             component: () => import('#index/views/home/Index.vue'),
             meta: {

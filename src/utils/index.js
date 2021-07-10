@@ -1,7 +1,4 @@
-import libs, {
-    $, _,
-} from '@/utils/cdn';
-import loader from './loader';
+import { $, _ } from '@/utils/cdn';
 
 /**
  * 普通空判断
@@ -147,20 +144,6 @@ function secretPhoneNum(num) {
 }
 
 /**
- * 延迟
- *
- * @param {number} [time=1000] 毫秒
- * @returns
- */
-function delay(time = 1000) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, time || 1);
-    });
-}
-
-/**
  * 检测图片的宽高
  *
  * @param {*} 图片的地址
@@ -221,18 +204,6 @@ function getRandomColor() {
     // return `hsl(${Math.random()}, 50%, 50%)`;
 }
 
-function loadCdn(name) {
-    if (!libs[name]) { throw new Error(`${name} 不存在`); }
-    const { js, css, objFun } = libs[name];
-    Array.isArray(css) && loader.loadCss(css);
-
-    return new Promise((resolve, reject) => {
-        loader.loadScript(js)
-            .then(() => resolve(objFun()))
-            .catch(() => reject(new Error(`load ${name} failed`)));
-    });
-}
-
 function customizer(objValue, srcValue) {
     if (_.isPlainObject(srcValue)) {
         return _.mergeWith(objValue, srcValue, customizer);
@@ -245,34 +216,6 @@ function deepMerge(target, obj) {
     _.mergeWith(target, obj, customizer);
 }
 
-/**
- * file格式转base64
- *
- * @param {*} file
- * @returns
- */
-function file2base64(file) {
-    return new Promise(resolve => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-    });
-}
-
-// 将base64转换为文件
-function base642file(dataurl, filename) {
-    const arr = dataurl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n) {
-        n -= 1;
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, { type: mime });
-}
-
 export default {
     isEmpty,
     getUrlParam,
@@ -283,10 +226,6 @@ export default {
     getRandomColor,
     getImageSize,
     deepMerge,
-    delay,
     deleteHtmlTag,
-    file2base64,
-    base642file,
-    loadCdn,
     _,
 };

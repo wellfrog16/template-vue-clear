@@ -66,7 +66,8 @@
 </template>
 
 <script>
-import { utils, rules, storage } from '@/utils/rivers';
+import { storage } from '@frog-res/h-utils/lib/es5';
+import { utils, rules } from '@/utils/rivers';
 import config from '@/config';
 import { STORAGE_SERVER } from '@/helper/constant';
 
@@ -80,7 +81,7 @@ export default {
             }
         };
 
-        const site = this.$helper.site();
+        const site = this.$helper.getSite();
 
         return {
             loading: false,
@@ -128,7 +129,7 @@ export default {
                 this.loading = true;
 
                 // 登陆
-                this.$store.dispatch('security/account/login', this.form.fields).then(() => {
+                this.$store.dispatch('security/safe/login', this.form.fields).then(() => {
                     storage.set(STORAGE_SERVER, this.form.fields.serverId); // 保存server选择
                     const path = this.$route.query.from || '/home';
                     this.$router.push({ path }).catch(() => {});

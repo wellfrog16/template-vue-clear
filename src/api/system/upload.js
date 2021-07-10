@@ -19,7 +19,7 @@ const upload = param => {
         formData.append(UPLOAD_NAME, param);
     }
 
-    const site = window.vueIndex.$helper.site();
+    const site = window.vueIndex.$helper.getSite();
     const headers = { 'Content-Type': 'multipart/form-data', ...site.headers };
     const conf = { headers };
 

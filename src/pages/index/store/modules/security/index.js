@@ -1,10 +1,8 @@
-import account from './account';
-import role from './role';
+import safe from './safe';
 
 export default {
     namespaced: true,
     modules: {
-        account,
-        role,
+        safe,
     },
 };

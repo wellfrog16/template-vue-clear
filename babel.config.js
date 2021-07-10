@@ -3,6 +3,10 @@ module.exports = {
         // '@vue/app',
         '@vue/cli-plugin-babel/preset',
     ],
+    plugins: [
+        '@babel/plugin-proposal-optional-chaining',
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+    ]
     // 暂时关闭按需加载
     // plugins: [
     //     [

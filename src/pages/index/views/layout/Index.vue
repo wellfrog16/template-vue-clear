@@ -40,7 +40,7 @@
 <script>
 import AsideMenu from '@/components/menu/index.vue';
 import { $ } from '@/utils/cdn';
-import { storage } from '@/utils/rivers';
+import { storage } from '@frog-res/h-utils/lib/es5';
 import Functions from './components/functions/index.vue';
 
 export default {
@@ -49,7 +49,7 @@ export default {
         return {
             width: 'auto',
             collapse: false,
-            menuData: this.$store.getters.routes,
+            menuData: this.$store.state.security.safe.fullRoutes,
         };
     },
     computed: {

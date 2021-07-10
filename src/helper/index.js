@@ -1,4 +1,4 @@
-import { storage } from '@/utils/rivers';
+import { storage } from '@frog-res/h-utils/lib/es5';
 import { STORAGE_SITE, STORAGE_SERVER } from '@/helper/constant';
 import config from '@/config';
 
@@ -7,9 +7,9 @@ import config from '@/config';
  *
  * @returns json
  */
-function site() {
+function getSite() {
     // 站点登陆信息，数据在登陆逻辑里
-    const mySite = storage.get(STORAGE_SITE, { encrypt: true }) || {};
+    const mySite = storage.get(STORAGE_SITE) || {};
 
     // 站点服务器信息
     const serverId = storage.get(STORAGE_SERVER) || 1;
@@ -60,7 +60,7 @@ function combineImageUrl(url) {
 }
 
 export default {
-    site,
+    getSite,
     restful,
     config,
     combineImageUrl,

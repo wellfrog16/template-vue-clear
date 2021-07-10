@@ -15,12 +15,12 @@ const list = () => new Promise(resolve => {
             {
                 id: 1,
                 name: 'admin',
-                roles: ['admin', 'editor'],
+                jsonRoles: ['admin', 'editor'],
             },
             {
                 id: 2,
                 name: 'editor',
-                roles: ['editor'],
+                jsonRoles: ['editor'],
             },
         ],
         total: 2,
@@ -38,9 +38,10 @@ const list = () => new Promise(resolve => {
 // offline
 const detail = () => new Promise(resolve => {
     resolve({
-        accountId: 1,
-        accountName: 'admin',
-        roles: ['admin', 'editor'],
+        id: 1,
+        username: 'admin',
+        jsonRoles: ['admin', 'editor'],
+        routes: ['home', 'document'],
     });
 });
 const insert = params => axios.post(base, params);

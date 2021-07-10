@@ -1,6 +1,6 @@
 import { PAGE, PAGE_SIZE, STORAGE_SERVER } from '@/helper/constant';
 import { _ } from '@/utils/cdn';
-import { storage } from '@/utils/rivers';
+import { storage } from '@frog-res/h-utils/lib/es5';
 import devConfig from './dev';
 import prodConfig from './prod';
 // 基础配置，一些默认设置
