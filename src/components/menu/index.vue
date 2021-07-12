@@ -1,5 +1,6 @@
 <template>
     <el-menu router
+             :class="$style.main"
              :collapse="collapse"
              :background-color="backgroundColor"
              :text-color="textColor"
@@ -46,3 +47,26 @@ export default {
     },
 };
 </script>
+
+<style lang="less" module>
+.main, .popper-class {
+    :global {
+        .h-icon {
+            vertical-align: middle;
+            margin-right: 5px;
+            width: 24px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1;
+            color: #d0ddec; // 对齐textColor
+        }
+
+        .el-submenu__title, .el-menu-item {
+            span {
+                position: relative;
+                top: 1px;
+            }
+        }
+    }
+}
+</style>

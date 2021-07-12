@@ -6,8 +6,8 @@ const route = {
     component: Layout,
     redirect: { path: '/security/account' },
     meta: {
-        title: '账户管理',
-        icon: 'menu-fix-icon fas fa-user-shield fa-lg fa-fw',
+        title: '系统安全',
+        icon: 'fas fa-user-shield fa-lg fa-fw',
     },
     children: [
         {
@@ -16,16 +16,7 @@ const route = {
             component: () => import(/* webpackChunkName: "security" */'#index/views/security/account/index.vue'),
             meta: {
                 title: '账户列表',
-                icon: 'menu-fix-icon fas fa-users fa-lg fa-fw',
-            },
-        },
-        {
-            name: 'directive',
-            path: 'directive',
-            component: () => import(/* webpackChunkName: "security" */'#index/views/security/directive/index.vue'),
-            meta: {
-                title: '权限控制',
-                icon: 'menu-fix-icon fab fa-ethereum fa-lg fa-fw',
+                icon: 'fas fa-users fa-lg fa-fw',
             },
         },
         {
@@ -33,8 +24,8 @@ const route = {
             path: 'role',
             component: () => import(/* webpackChunkName: "security" */'#index/views/security/role/index.vue'),
             meta: {
-                title: '权限设置',
-                icon: 'menu-fix-icon fas fa-user-cog fa-lg fa-fw',
+                title: '角色管理',
+                icon: 'fas fa-user-tag fa-lg fa-fw',
             },
         },
     ],

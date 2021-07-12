@@ -6,7 +6,7 @@ const route = {
     component: Layout,
     redirect: { path: '/home/index' },
     meta: {
-        icon: 'menu-fix-icon fas fa-home fa-lg fa-fw',
+        icon: 'fas fa-home fa-lg fa-fw',
         title: '首页',
     },
     children: [

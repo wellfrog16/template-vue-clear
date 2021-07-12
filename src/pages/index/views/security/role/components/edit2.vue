@@ -24,16 +24,13 @@
 </template>
 
 <script>
-// import { _ } from '@/utils/cdn';
-import Permission from '@/utils/permission';
 import { asyncRoutes } from '#index/router';
-
-const permission = new Permission(asyncRoutes);
+import { transformToTree } from '#index/router/helper';
 
 export default {
     data() {
         return {
-            routes: permission.treeData(),
+            routes: transformToTree(asyncRoutes),
             form: {
                 fields: {
                     name: '',

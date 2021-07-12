@@ -7,7 +7,7 @@ const route = {
     redirect: { path: '/research/mixins' },
     meta: {
         title: '研究示例',
-        icon: 'menu-fix-icon fas fa-democrat fa-lg fa-fw',
+        icon: 'fas fa-democrat fa-lg fa-fw',
     },
     children: [
         {
@@ -16,7 +16,7 @@ const route = {
             component: () => import(/* webpackChunkName: "research" */'#index/views/research/base-table/index.vue'),
             meta: {
                 title: '基础表格和表单',
-                icon: 'menu-fix-icon fab fa-wpforms fa-lg fa-fw',
+                icon: 'fab fa-wpforms fa-lg fa-fw',
             },
         },
         {
@@ -25,7 +25,7 @@ const route = {
             component: () => import(/* webpackChunkName: "research" */'#index/views/research/lazy-table/index.vue'),
             meta: {
                 title: '滚动加载',
-                icon: 'menu-fix-icon fas fa-scroll fa-lg fa-fw',
+                icon: 'fas fa-scroll fa-lg fa-fw',
             },
         },
     ],

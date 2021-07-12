@@ -3,7 +3,7 @@
         v-bind="itemProps"
         @click="link"
     >
-        <i :class="item.meta && item.meta.icon"></i>
+        <h-icon :class="item.meta && item.meta.icon" />
         <span slot="title">{{ item.meta && item.meta.title }}</span>
     </el-menu-item>
 </template>

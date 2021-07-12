@@ -5,7 +5,7 @@
         :popper-class="popperClass"
     >
         <template slot="title">
-            <i :class="item.meta && item.meta.icon"></i>
+            <h-icon :class="item.meta && item.meta.icon" />
             <span>{{ item.meta && item.meta.title }}</span>
         </template>
         <template v-for="item1 in item.children">

@@ -97,113 +97,6 @@ function createCode(canvas) {
     return code;
 }
 
-// 货币格式化
-function currency(vals, units = '', decimals) {
-    let decimal = decimals;
-    let val = vals;
-    let unit = units;
-
-    if (decimal === undefined || decimal === null) {
-        const arr = (`${val}`).split('.');
-        decimal = arr.length === 2 ? arr[1].length : 0;
-    }
-    const digitsRE = /(\d{3})(?=\d)/g;
-    val = parseFloat(val);
-    // 数值判断
-    if (!_.isFinite(val) || (!val && val !== 0)) return '';
-    unit = unit != null ? unit : '$';
-    decimal = decimal != null ? decimal : 2;
-    const stringified = Math.abs(val).toFixed(decimal);
-    const intx = decimal
-        ? stringified.slice(0, -1 - decimal)
-        : stringified;
-    const i = intx.length % 3;
-    const head = i > 0
-        ? (intx.slice(0, i) + (intx.length > 3 ? ',' : ''))
-        : '';
-    const floatx = decimal
-        ? stringified.slice(-1 - decimal)
-        : '';
-    const sign = val < 0 ? '-' : '';
-    return sign + unit + head
-        + intx.slice(i).replace(digitsRE, '$1,')
-        + floatx;
-}
-
-/**
- * 隐藏手机号当中四位
- *
- * @param {String|Number} num 手机号码
- * @returns
- */
-function secretPhoneNum(num) {
-    if (!num) { return ''; }
-    const val = num.toString();
-    if (!num || val.length !== 11) { return ''; }
-    return `${val.substr(0, 3)}****${val.substr(7)}`;
-}
-
-/**
- * 检测图片的宽高
- *
- * @param {*} 图片的地址
- * @return {Json} { width, height }
- */
-function getImageSize(url) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = url;
-
-        const timeout = 3000; // 检测超时上限
-        const interval = 10; // 检测频率
-        let times = 0; // 已用时
-        let timer = null; // setInterval
-
-        function check() {
-            times += interval;
-
-            // 加载超时
-            if (times >= timeout) {
-                clearInterval(timer);
-                img.src = '';
-                reject(new Error('time out!'));
-            }
-
-            //  只要任何一方大于0
-            // 表示服务器已经返回宽高
-            if (img.width > 0 || img.height > 0) {
-                clearInterval(timer);
-                resolve({
-                    width: img.width,
-                    height: img.height,
-                });
-            }
-        }
-        timer = setInterval(check, interval);
-    });
-}
-
-/**
- * 去掉所有的html标签和&nbsp;之类的特殊符合
- *
- * @param {String} str
- * @returns
- */
-function deleteHtmlTag(str) {
-    if (!str) { return ''; }
-    return str.replace(/<[^>]+>|&[^>]+;/g, '').trim();
-}
-
-/**
- * 产生一个随机颜色
- *
- * @returns
- */
-function getRandomColor() {
-    return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).slice(-6); // eslint-disable-line
-    // return `hsl(${Math.random()}, 50%, 50%)`;
-}
-
 function customizer(objValue, srcValue) {
     if (_.isPlainObject(srcValue)) {
         return _.mergeWith(objValue, srcValue, customizer);
@@ -221,11 +114,6 @@ export default {
     getUrlParam,
     autoRootSize,
     createCode,
-    currency,
-    secretPhoneNum,
-    getRandomColor,
-    getImageSize,
     deepMerge,
-    deleteHtmlTag,
     _,
 };
