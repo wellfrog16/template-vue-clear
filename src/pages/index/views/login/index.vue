@@ -153,7 +153,7 @@ export default {
 </script>
 
 <style lang="less" module>
-@import '~@/assets/style/usr/index.config.less';
+@import '~@/assets/style/index.config.less';
 
 .main {
     background-color: @g-color-primary;

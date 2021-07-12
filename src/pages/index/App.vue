@@ -18,5 +18,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../assets/style/usr/index.less';
+@import '../../assets/style/index.less';
 </style>

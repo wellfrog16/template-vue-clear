@@ -44,7 +44,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import style from '@/assets/style/usr/index.module.less';
+import style from '@/assets/style/index.module.less';
 import AbsTable from '#index/components/abstract/table/default.vue';
 
 const { mapState, mapMutations, mapActions } = createNamespacedHelpers('research/lazyTable');
