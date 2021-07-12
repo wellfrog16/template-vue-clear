@@ -57,8 +57,9 @@ export default {
         // 获取选择的权限，发送到后端保存
         // 后端存储方式 roleName: string, path: json/string
         handSave() {
-            const resLeaf = this.$refs.tree.getCheckedKeys(true);
-            console.log(resLeaf);
+            const nodes = this.$refs.tree.getCheckedNodes(true, false);
+            const result = nodes.map(item => item.name);
+            console.log(result);
             // this.$message.success('请查看console.log信息');
             const message = { message: '请在dev模式下查看console.log信息', type: 'info' };
             this.$store.commit('setState', { message });
